@@ -1,17 +1,16 @@
 import fs from 'fs'
 import path from 'path';
-import Link from 'next/link';
 import matter from 'gray-matter';
 import Layout from '../../../components/Layout'
 import Post from '../../../components/Post';
-import { sortByDate } from '@/utils';
+import { getPosts } from '../../../lib/posts';
 
 
 export default function Category({ posts, categoryName }) {
   return (
     <Layout className='bg-blue-500'>
       <h1 className='text-5xl border-b-4 p-5 font-bold'>
-        Posts in {category_name}
+        Posts in {categoryName}
       </h1>
       <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-5'>
         {posts.map((post, index) => (
@@ -46,20 +45,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({params: {category_name}}) {
 
   const files = fs.readdirSync(path.join('posts'));
-  const posts = files.map((filename) => {
-    const slug = filename.replace('.md', '');
-    const markdownWithMeta = fs.readFileSync(
-      path.join('posts', filename),
-      'utf-8'
-    );
-
-    const { data: frontmatter } = matter(markdownWithMeta);
-
-    return {
-      slug,
-      frontmatter,
-    };
-  });
+  const posts = getPosts()
   
   // Filter post by category
   const categoryPosts = posts.filter(
@@ -68,7 +54,7 @@ export async function getStaticProps({params: {category_name}}) {
 
   return {
     props: {
-      posts: categoryPosts.sort(sortByDate),
+      posts: categoryPosts,
       categoryName: category_name,
     },
   };
