@@ -1,11 +1,12 @@
 import Head from 'next/head';
 import Header from './Header';
+import Search from './Search';
 
 export default function Layout({
   title = 'Welcome to CodeCafé',
   keywords = 'development, coding, programming',
   description = 'The best info and news in development',
-  children
+  children,
 }) {
   return (
     <div>
@@ -16,6 +17,7 @@ export default function Layout({
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <Header />
+      <Search />
       <main className='container mx-auto my-7'>{children}</main>
     </div>
   );
