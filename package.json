@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "cache-posts": "node scripts/cache.js",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@next/font": "13.4.19",
@@ -22,6 +24,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.15",
+    "husky": "^6.0.0",
     "postcss": "^8.4.28",
     "tailwindcss": "^3.3.3"
   }
