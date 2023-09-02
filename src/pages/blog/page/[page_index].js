@@ -1,22 +1,30 @@
 import fs from 'fs'
 import path from 'path';
 import { getPosts } from '../../../lib/posts';
-import Layout from '@/components/Layout';
-import Post from '@/components/Post';
-import Pagination from '@/components/Pagination';
+import Layout from '../../../components/Layout';
+import Post from '../../..//components/Post';
+import Pagination from '../../../components/Pagination';
+import CategoryList from '../../../components/CategoryList';
 import { POSTS_PER_PAGE } from '../../../config/index';
 
 
-export default function Blog({ posts, numPages, currentPage }) {
+export default function Blog({ posts, numPages, currentPage, categories }) {
   return (
     <Layout className='bg-blue-500'>
-      <h1 className='text-5xl border-b-4 p-5 font-bold'>Blog</h1>
-      <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-5'>
-        {posts.map((post, index) => (
-          <Post key={index} post={post} />
-        ))}
+      <div className='flex justify-between'>
+        <div className='w-3/4 mr-10'>
+          <h1 className='text-5xl border-b-4 p-5 font-bold'>Blog</h1>
+          <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-5'>
+            {posts.map((post, index) => (
+              <Post key={index} post={post} />
+            ))}
+          </div>
+          <Pagination currentPage={currentPage} numPages={numPages} />
+        </div>
+        <div className='w-1/4'>
+          <CategoryList categories={categories} />
+        </div>
       </div>
-      <Pagination currentPage={currentPage} numPages={numPages} />
     </Layout>
   );
 }
@@ -44,6 +52,10 @@ export async function getStaticProps({params}) {
   const files = fs.readdirSync(path.join('posts'));
   const posts = getPosts()
 
+  // Get categories for sidebar
+  const categories = posts.map(post => post.frontmatter.category)
+  const uniqueCategories = [...new Set(categories)]
+
   const numPages = Math.ceil(files.length / POSTS_PER_PAGE);
   const pageIndex = page - 1;
   const orderedPosts = posts
@@ -53,7 +65,8 @@ export async function getStaticProps({params}) {
     props: {
       posts: orderedPosts, 
       numPages,
-      currentPage: page
+      currentPage: page,
+      categories: uniqueCategories
     },
   };
 }

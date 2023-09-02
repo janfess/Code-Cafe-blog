@@ -1,12 +1,20 @@
+/* eslint-disable @next/next/no-img-element */
 import Link from "next/link"
 import Image from "next/image"
-import Layout from "@/components/Layout"
+import Layout from '../components/Layout'
 
 export default function NotFoundPage() {
   return (
     <Layout title='Page not found'>
       <div className='flex flex-col items-center mt-20'>
-        <Image
+        {/* <Image
+          src='/images/logo.png'
+          width={70}
+          height={70}
+          className='bg-gray-800 rounded-2xl'
+          alt='logo.png'
+        /> */}
+         <img
           src='/images/logo.png'
           width={70}
           height={70}

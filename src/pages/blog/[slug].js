@@ -2,8 +2,8 @@
 import fs from 'fs'
 import path from 'path'
 import Link from 'next/link';
-import Layout from '@/components/Layout';
-import CategoryLabel from '@/components/CategoryLabel';
+import Layout from '../../components/Layout';
+import CategoryLabel from '../../components/CategoryLabel';
 import matter from 'gray-matter'
 import sanitizeHtml from 'sanitize-html'
 import { marked } from 'marked';
