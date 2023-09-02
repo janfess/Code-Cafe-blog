@@ -9,7 +9,8 @@ export default function Header() {
           className='flex md:w-1/5 title-font font-medium items-center md:justify-start mb-4 md:mb-0'
           href='/'
         >
-          <Image src='/images/logo.png' width={40} height={40} alt='logo' />
+          {/* <Image src='/images/logo.png' width={40} height={40} alt='logo' /> */}
+          <img src='/images/logo.png' width={40} height={40} alt='logo' />
 
           <span className='font-mono ml-3 hover:text-white text-xl'>CodeCafé</span>
         </Link>
